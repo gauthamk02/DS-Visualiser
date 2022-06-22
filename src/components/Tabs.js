@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Array from './Array';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
+import '../styles/styles.css';
 
 
 
@@ -25,13 +26,13 @@ function Tabs() {
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
-          DS2
+          Linked List
         </button>
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
         >
-          DS3
+          Stack
         </button>
       </div>
 
@@ -39,7 +40,6 @@ function Tabs() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <h2>Arrays</h2>
           <Array />
         </div>
 

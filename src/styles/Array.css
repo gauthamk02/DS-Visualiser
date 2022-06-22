@@ -1,11 +1,15 @@
-.card {
-    display: inline-block;
+.array-item {
     width: 5rem;
     padding: 1rem;
     border: 2px solid black;
-    border-radius: 0px;
+    text-align: center;
 }
 
-.card-child {
-    margin: 0;
+.array-table {
+    margin: auto auto;
+}
+
+h2 {
+    margin: 10px;
+    text-align: center;
 }
