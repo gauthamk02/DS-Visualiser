@@ -14,7 +14,7 @@ function Tabs() {
   };
 
   return (
-    <div className="container">
+    <div className="container tabs-container">
       <div className="bloc-tabs">
         <button
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
@@ -33,6 +33,18 @@ function Tabs() {
           onClick={() => toggleTab(3)}
         >
           Stack
+        </button>
+        <button
+          className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(4)}
+        >
+          Queue
+        </button>
+        <button
+          className={toggleState === 5 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(5)}
+        >
+          Binary Tree
         </button>
       </div>
 

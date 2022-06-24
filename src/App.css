@@ -4,11 +4,12 @@
   padding: 0;
 }
 
-body {
-  background: rgb(182, 171, 171);
+.bg-body {
+  /* background: rgb(182, 171, 171); */
+  background-color: #000000;
 }
 
-.container {
+.tabs-container {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -16,9 +17,21 @@ body {
   height: 800px;
   background: #f1f1f1;
   margin: 100px auto 0;
-  word-break: break-all;
+  word-break: break-word;
   border: 1px solid rgba(0, 0, 0, 0.274);
 }
+
+/* .container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 90%;
+  height: 800px;
+  background: #f1f1f1;
+  margin: 100px auto 0;
+  word-break: break-word;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+} */
 
 .bloc-tabs {
   display: flex;
