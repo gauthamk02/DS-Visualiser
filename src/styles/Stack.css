@@ -1,17 +1,17 @@
-.array-item {
-    width: 5rem;
+.stack-item {
+    width: 15rem;
     text-align: center;
 }
 
-.array-table {
+.stack-table {
     margin: auto auto;
 }
 
 .item-container {
     width: 100%;
-    height: 75px;
+    height: 60px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
 }
 
 h2 {

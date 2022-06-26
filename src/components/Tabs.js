@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Array from './Array';
+import Stack from './Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
 import '../styles/styles.css';
@@ -69,16 +70,7 @@ function Tabs() {
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <h2>Data structure 3</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sed
-            nostrum rerum laudantium totam unde adipisci incidunt modi alias!
-            Accusamus in quia odit aspernatur provident et ad vel distinctio
-            recusandae totam quidem repudiandae omnis veritatis nostrum
-            laboriosam architecto optio rem, dignissimos voluptatum beatae
-            aperiam voluptatem atque. Beatae rerum dolores sunt.
-          </p>
+          <Stack />
         </div>
       </div>
     </div>
