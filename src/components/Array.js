@@ -32,19 +32,19 @@ class Array extends React.Component {
     }
 
     clearArray = () => {
-        this.setState({ arrayState: [] });
+        this.setState({ arrayState: [] , lastOperaion: ArraySteps.clearArray()});
     }
 
-    deleteAtIndex = (ind) => {
+    deleteAtIndex = (ind, steps) => {
         if (!this.isValidIndex(ind)) {
             alert("Invalid Index");
             return;
         }
         this.state.arrayState.splice(ind, 1);
-        this.setState({ arrayState: this.state.arrayState });
+        this.setState({ arrayState: this.state.arrayState, lastOperation: steps });
     }
 
-    insertAtIndex = (ind, val) => {
+    insertAtIndex = (ind, val, steps) => {
         if (!this.isValidIndex(ind)) {
             alert("Invalid Index " + ind);
             return;
@@ -55,21 +55,14 @@ class Array extends React.Component {
         }
         if (ind === "" || val === "" || ind === null || val === null) return;
         this.state.arrayState.splice(ind, 0, this.createArrayItem(val));
-        let title = this.steps.insertAtIndex.title.replace('{index}', ind);
-        let steps = this.steps.insertAtIndex.steps.map((stepstr, index) => {
-            let step = stepstr.replace('{index}', ind);
-            step = step.replace('{n}', this.state.arrayState.length);
-            step = step.replace('{index+1}', ind + 1);
-            return step;
-        });
-        this.setState({ arrayState: this.state.arrayState, lastOperation: { title: title, steps: steps } });
+        this.setState({ arrayState: this.state.arrayState, lastOperation: steps });
     }
 
     insertAtEnd = (val) => {
         if (val === "" || val === null) return;
         let arr = this.state.arrayState;
         arr.push(this.createArrayItem(val));
-        this.setState({ arrayState: arr });
+        this.setState({ arrayState: arr, lastOperation: ArraySteps.insertAtEnd(this.state.arrayState.length) });
     }
 
     createArray = () => {
@@ -131,11 +124,11 @@ class Array extends React.Component {
                             <button type="button" class="btn btn-info me-3" onClick={() => {
                                 const ind = prompt("Enter the Index");
                                 const val = prompt("Enter the value");
-                                this.insertAtIndex(ind, val)
+                                this.insertAtIndex(ind, val, ArraySteps.insertAtIndex(ind, this.state.arrayState.length + 1))
                             }}>Insert Element at Index</button>
                             <button type="button" class="btn btn-info me-3" onClick={() => {
                                 const val = prompt("Enter the value");
-                                this.insertAtIndex(0, val)
+                                this.insertAtIndex(0, val, ArraySteps.insertAtBeginning(this.state.arrayState.length + 1))
                             }}>Insert Element at Beginning</button>
                             <button type="button" class="btn btn-info me-3" onClick={() => {
                                 const val = prompt("Enter the value");
@@ -143,11 +136,15 @@ class Array extends React.Component {
                             }}>Insert Element at End</button>
                         </div>
                         <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-warning me-3" onClick={() => { this.deleteAtIndex(0) }}>Delete Element from Start</button>
-                            <button type="button" class="btn btn-warning me-3" onClick={() => { this.deleteAtIndex(-1) }}>Delete Element from End</button>
+                            <button type="button" class="btn btn-warning me-3" onClick={() => {
+                                this.deleteAtIndex(0, ArraySteps.deleteAtBeginning(this.state.arrayState.length - 1))
+                            }}>Delete Element from Start</button>
+                            <button type="button" class="btn btn-warning me-3" onClick={() => {
+                                this.deleteAtIndex(-1, ArraySteps.deleteAtEnd(this.state.arrayState.length - 1))
+                            }}>Delete Element from End</button>
                             <button type="button" class="btn btn-warning me-3" onClick={() => {
                                 const ind = prompt("Enter the Index");
-                                this.deleteAtIndex(ind)
+                                this.deleteAtIndex(ind, ArraySteps.deleteAtIndex(ind, this.state.arrayState.length - 1))
                             }}>Delete Element at Index</button>
                         </div>
                         <div class="d-flex justify-content-center m-3">
@@ -161,13 +158,17 @@ class Array extends React.Component {
                             !(Object.keys(this.state.lastOperation).length === 0) ? (
                                 <>
                                     <b>Last Operation: {this.state.lastOperation.title}</b>
-                                    <br/>
-                                    <b>Steps:</b>
-                                    <ol className="step-ol" >
-                                        {this.state.lastOperation.steps.map((step, index) => {
-                                            return <li key={index} className="step-li">{step}</li>;
-                                        })}
-                                    </ol>
+                                    {
+                                        (this.state.lastOperation.steps.length === 0) ? "" :
+                                            (<> <b>Steps:</b>
+                                                <ol className="step-ol" >
+                                                    {this.state.lastOperation.steps.map((step, index) => {
+                                                        return <li key={index} className="step-li">{step}</li>;
+                                                    })}
+                                                </ol>
+                                            </>
+                                            )
+                                    }
                                 </>
                             ) : ""
                         }
@@ -187,3 +188,90 @@ class ArrayItem {
 }
 
 export default Array;
+
+class ArraySteps {
+    static insertAtIndex(index, size) {
+        return {
+            title: `Insert Element at Index ${index}`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Copy all the elements from the old Array till index ${index} to the new Array .`,
+                `Insert the new element at index ${index} of the new Array.`,
+                `Copy all the elements from the old Array from index ${index} till end to the new Array .`,
+            ]
+        }
+    }
+
+    static insertAtBeginning(size) {
+        return {
+            title: `Insert Element at Beginning`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Insert the new element to position 0 of the new Array.`,
+                `Copy all the elements from the old Array to the new Array from index 1.`,
+            ]
+        }
+    }
+
+    static insertAtEnd(size) {
+        return {
+            title: `Insert Element at End`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Copy all the elements from the old Array to the new Array.`,
+                `Insert the new element to position ${size - 1} of the new Array.`,
+            ]
+        }
+    }
+
+    static deleteAtIndex(index, size) {
+        return {
+            title: `Delete Element at Index ${index}`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Copy all the elements from the old Array till index ${index} to the new Array .`,
+                `Skip the element at index {index} of the old Array.`,
+                `Copy all the elements from the old Array from index ${index + 1} till end to the new Array .`,
+            ]
+        }
+    }
+
+    static deleteAtBeginning(size) {
+        return {
+            title: `Delete Element from Start`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Skip the element at index 0 of the old Array.`,
+                `Copy all the elements from the old Array from index 1 till end to the new Array .`,
+            ]
+        }
+    }
+
+    static deleteAtEnd(size) {
+        return {
+            title: `Delete Element from End`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+                `Copy all the elements from index 0 of the old Array till index ${size - 1} to the new Array.`,
+            ]
+        }
+    }
+
+    //TODO: Add setps for change value at index
+
+    static clearArray() {
+        return {
+            title: `Clear Array`,
+            steps: []
+        }
+    }
+
+    static createArray(size) {
+        return {
+            title: `Create Array with size ${size}`,
+            steps: [
+                `Create a new Array with size ${size}.`,
+            ]
+        }
+    }
+}
