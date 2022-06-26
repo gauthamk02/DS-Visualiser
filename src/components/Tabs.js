@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Queue from './Queue';
 import Array from './Array';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
@@ -79,6 +80,10 @@ function Tabs() {
             laboriosam architecto optio rem, dignissimos voluptatum beatae
             aperiam voluptatem atque. Beatae rerum dolores sunt.
           </p>
+        </div>
+
+        <div className={toggleState === 4 ? "content active-content" : "content"}>
+          <Queue />
         </div>
       </div>
     </div>
