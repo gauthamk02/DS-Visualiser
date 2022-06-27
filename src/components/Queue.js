@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/Array.css'
 import '../styles/styles.css'
 
-class Array extends React.Component {
+class Queue extends React.Component {
     constructor(props) {
         super(props)
         this.colorCounter = 0;
@@ -26,6 +26,7 @@ class Array extends React.Component {
 
     createQueueItem = (val) => {
         let bgcolors = ["#FEA47F", "#25CCF7", "#EAB543", "#55E6C1", "#FD7272"];
+
         let color = bgcolors[this.colorCounter % bgcolors.length];
         this.colorCounter++;
         return new QueueItem(val, color);
@@ -35,43 +36,12 @@ class Array extends React.Component {
         this.setState({ arrayState: [] });
     }
 
-
-    insertAtEnd = (val) => {
-        if (val === "" || val === null) return;
-        let arr = this.state.arrayState;
-        arr.push(this.createQueueItem(val));
-        this.setState({ arrayState: arr });
-    }
-
     dequeue = (ind) => {
-        /*if (!this.isValidIndex(ind)) {
-            alert("Invalid Index");
-            return;
-        }*/
         this.state.arrayState.splice(0, 1);
         this.setState({ arrayState: this.state.arrayState });
     }
 
-    insertAtIndex = (ind, val) => {
-        if (!this.isValidIndex(ind)) {
-            alert("Invalid Index " + ind);
-            return;
-        }
-        if (this.state.arrayState.length === 20) {
-            alert("Cant create array with length more than 20");
-            return;
-        }
-        if (ind === "" || val === "" || ind === null || val === null) return;
-        this.state.arrayState.splice(ind, 0, this.createArrayItem(val));
-        let title = this.steps.insertAtIndex.title.replace('{index}', ind);
-        let steps = this.steps.insertAtIndex.steps.map((stepstr, index) => {
-            let step = stepstr.replace('{index}', ind);
-            step = step.replace('{n}', this.state.arrayState.length);
-            step = step.replace('{index+1}', ind + 1);
-            return step;
-        });
-        this.setState({ arrayState: this.state.arrayState, lastOperation: { title: title, steps: steps } });
-    }
+    
 
     Enqueue = (val) => {
         if (val === "" || val === null) return;
@@ -80,31 +50,11 @@ class Array extends React.Component {
         this.setState({ arrayState: arr });
     }
 
-    createQueue = () => {
-        let size = prompt("Enter the size of the Queue");
-        this.clearQueue();
-        if (size > 20) {
-            alert("Cant create Queue with length more than 20");
-            return;
-        }
-        let arr = [];
-        while (size--) {
-            arr.push(this.QueueItem(0));
-        }
-        this.setState({ arrayState: arr });
+    peek = () => {
+        alert(this.state.arrayState[0].val)
+        return;
     }
 
-    changeVal = () => {
-        let ind = prompt("Enter the index of the array");
-        let val = prompt("Enter the value of the array");
-        if (!this.isValidIndex(ind)) {
-            alert("Invalid Index " + ind);
-            return;
-        }
-        let arr = this.state.arrayState;
-        arr[ind].val = val;
-        this.setState({ arrayState: arr });
-    }
 
     isValidIndex = (ind) => {
         return ind >= this.state.arrayState.length * -1 && ind < this.state.arrayState.length;
@@ -119,9 +69,10 @@ class Array extends React.Component {
                         this.state.arrayState.length > 0 ? (
                             <table className='array-table'>
                                 <tr>
+                                    <td style={{paddingRight: '10px'}}><h5>Front</h5></td>
                                     {this.state.arrayState.map((item, index) => {
                                         return <td className='array-item' >
-                                            <p style={{ margin: "0 0 0 0" }}>{index}</p>
+                                            {/* <p style={{ margin: "0 0 0 0" }}>{index}</p> */}
                                             <div className='item-container' style={{ backgroundColor: item.color }}>
                                                 <div style={{ margin: "auto", position: "relative" }}>
                                                     <b>{item.val}</b>
@@ -129,8 +80,9 @@ class Array extends React.Component {
                                             </div>
                                         </td>
                                     })}
+                                    <td style={{paddingLeft: '10px'}}><h5>Rear</h5></td>
                                 </tr>
-                            </table>) : (<h4 style={{ margin: "auto auto" }}>Array is Empty</h4>)
+                            </table>) : (<h4 style={{ margin: "auto auto" }}>Queue is Empty</h4>)
                     }
                 </div>
                 <div class="row workspace">
@@ -138,15 +90,13 @@ class Array extends React.Component {
                         <div class="d-flex justify-content-center m-3">
                             <button type="button" class="btn btn-info me-3" onClick={() => {
                                 const val = prompt("Enter value : ")
-                                this.insertAtEnd(val)}}>Enqueue</button>
-                        </div>
-                        <div class="d-flex justify-content-center m-3">
+                                this.Enqueue(val)}}>Enqueue</button>
                             <button type="button" class="btn btn-warning me-3" onClick={() => { this.dequeue(0) }}>Dequeue</button>
-                        </div>
+                            <button type="button" class="btn btn-warning me-3" onClick={() => { this.peek() }}>Peek</button>
+
+                        </div> 
                         <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-primary me-3" onClick={this.changeVal}>Change Value at Index</button>
-                            <button type="button" class="btn btn-danger me-3" onClick={this.clearArray}>Clear Array</button>
-                            <button type="button" class="btn btn-success me-3" onClick={this.createArray}>Create Array</button>
+                            <button type="button" class="btn btn-danger me-3" onClick={this.clearQueue}>Clear Queue</button>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -178,5 +128,4 @@ class QueueItem {
         this.color = color;
     }
 }
-
-export default Array;
+export default Queue;
