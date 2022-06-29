@@ -7,7 +7,7 @@ class Queue extends React.Component {
         super(props)
         this.colorCounter = 0;
         this.state = {
-            arrayState: [this.createQueueItem(12), this.createQueueItem(87), this.createQueueItem(64)],
+            QueueState: [this.createQueueItem(12), this.createQueueItem(87), this.createQueueItem(64)],
             lastOperation: {},
         }
 
@@ -33,31 +33,46 @@ class Queue extends React.Component {
     }
 
     clearQueue = () => {
-        this.setState({ arrayState: [] });
+        this.setState({ QueueState: [] });
     }
 
     dequeue = (ind) => {
-        this.state.arrayState.splice(0, 1);
-        this.setState({ arrayState: this.state.arrayState });
+        if(this.state.QueueState.length===0){
+            alert("Queue is Empty!!")
+            return;
+        }
+        alert(`The Dequeued value is : ${this.state.QueueState[0].val}`)
+        this.state.QueueState.splice(0, 1);
+        this.setState({ QueueState: this.state.QueueState , lastOperation : QueueSteps.dequeue(this.state.QueueState.length) });
     }
 
     
-
+ 
     Enqueue = (val) => {
+
         if (val === "" || val === null) return;
-        let arr = this.state.arrayState;
+        if(this.state.QueueState.length===10){
+            alert("Cant Create Queue with more than 10 values")
+            return;
+        }
+        let arr = this.state.QueueState;
         arr.push(this.createQueueItem(val));
-        this.setState({ arrayState: arr });
+        this.setState({ QueueState: arr , lastOperation : QueueSteps.Enqueue(this.state.QueueState.length)});
+        
     }
 
     peek = () => {
-        alert(this.state.arrayState[0].val)
+        if(this.state.QueueState.length===0){
+            alert("Queue is Empty!!")
+            return;
+        }
+        alert(`Peek Value is : ${this.state.QueueState[0].val}`)
         return;
     }
-
-
-    isValidIndex = (ind) => {
-        return ind >= this.state.arrayState.length * -1 && ind < this.state.arrayState.length;
+    
+    Length = () => {
+        alert(`The Length of Queue is : ${this.state.QueueState.length}`)
+        return;
     }
 
     render() {
@@ -66,11 +81,11 @@ class Queue extends React.Component {
                 <h2>Queue</h2>
                 <div className='container canvas'>
                     {
-                        this.state.arrayState.length > 0 ? (
+                        this.state.QueueState.length > 0 ? (
                             <table className='array-table'>
                                 <tr>
                                     <td style={{paddingRight: '10px'}}><h5>Front</h5></td>
-                                    {this.state.arrayState.map((item, index) => {
+                                    {this.state.QueueState.map((item, index) => {
                                         return <td className='array-item' >
                                             {/* <p style={{ margin: "0 0 0 0" }}>{index}</p> */}
                                             <div className='item-container' style={{ backgroundColor: item.color }}>
@@ -92,11 +107,12 @@ class Queue extends React.Component {
                                 const val = prompt("Enter value : ")
                                 this.Enqueue(val)}}>Enqueue</button>
                             <button type="button" class="btn btn-warning me-3" onClick={() => { this.dequeue(0) }}>Dequeue</button>
-                            <button type="button" class="btn btn-warning me-3" onClick={() => { this.peek() }}>Peek</button>
+                            <button type="button" class="btn btn-dark" onClick={() => { this.peek() }}>Peek</button>
 
                         </div> 
                         <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-danger me-3" onClick={this.clearQueue}>Clear Queue</button>
+                            <button type="button" class="btn btn-danger me-3" onClick={() => {this.clearQueue()}}>Clear Queue</button>
+                            <button type="button" class="btn btn-secondary" onClick={() => { this.Length() }}>Length</button>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -129,3 +145,40 @@ class QueueItem {
     }
 }
 export default Queue;
+
+class QueueSteps{
+    static Enqueue(length){
+        return {
+            title: `Enqueue`,
+            steps: [
+                `Create a new Queue with size ${length}.`,
+                `Copy all the elements from the old Queue to the new Queue.`,
+                `Insert the new element to position ${length - 1} of the new Queue.`,
+            ]
+        }
+
+    }
+    static dequeue(length){
+        return {
+            title: `Dequeue`,
+            steps: [
+              `Checks if the Queue is empty.`,
+              `If the Queue is empty, produces an error and exit.`,
+              `If the Queue is not empty, proceeds to remove the data element at which front is pointing.`,
+              `Decreases the value of rear by 1.`
+            ]
+        }
+
+    }
+    static peek(){
+        return {
+            title: `Front element Displayed`,
+            steps: [
+              `Checks if the stack is empty.`,
+              `If the stack is empty, produces an error and exit.`,
+              `If the stack is not empty, accesses the data element at which top is pointing.`,
+              `Decreases the value of top by 1.`
+            ]
+        }
+    }
+}

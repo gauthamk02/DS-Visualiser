@@ -102,11 +102,7 @@ class Stack extends React.Component {
                                 </div>
                                 <div className="d-flex justify-content-center m-3">
                                     <button type="button" className="btn btn-danger me-3" onClick={this.clearStack}>Clear Stack</button>
-<<<<<<< HEAD
-                                    <button type="button" className="btn btn-success me-3" onClick={this.peek}>Peek</button>
-=======
                                     <button type="button" className="btn btn-secondary" onClick={this.peekStack}>Peek</button>
->>>>>>> f13464f343be55a14a5e8f6d0f9f0306ddfccf08
                                 </div>
                             </div>
                             <div className="row">
