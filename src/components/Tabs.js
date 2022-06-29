@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Array from './Array';
 import Stack from './Stack';
+import LinkedList from './LinkedList';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
 import '../styles/styles.css';
-
-
 
 function Tabs() {
   const [toggleState, setToggleState] = useState(1);
@@ -59,12 +58,7 @@ function Tabs() {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <h2>Data 2</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-            voluptatum qui adipisci.
-          </p>
+          <LinkedList />
         </div>
 
         <div
