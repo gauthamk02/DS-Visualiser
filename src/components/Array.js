@@ -103,6 +103,7 @@ class Array extends React.Component {
                     {
                         this.state.arrayState.length > 0 ? (
                             <table className='array-table'>
+                                <tbody>
                                 <tr>
                                     {this.state.arrayState.map((item, index) => {
                                         return <td className='array-item' >
@@ -115,45 +116,46 @@ class Array extends React.Component {
                                         </td>
                                     })}
                                 </tr>
+                                </tbody>
                             </table>) : (<h4 style={{ margin: "auto auto" }}>Array is Empty</h4>)
                     }
                 </div>
-                <div class="row workspace">
-                    <div class="col-7" style={{ borderRight: "4px solid black" }}>
-                        <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-info me-3" onClick={() => {
+                <div className="row workspace">
+                    <div className="col-7" style={{ borderRight: "4px solid black" }}>
+                        <div className="d-flex justify-content-center m-3">
+                            <button type="button" className="btn btn-info me-3" onClick={() => {
                                 const ind = prompt("Enter the Index");
                                 const val = prompt("Enter the value");
                                 this.insertAtIndex(ind, val, ArraySteps.insertAtIndex(ind, this.state.arrayState.length + 1))
                             }}>Insert Element at Index</button>
-                            <button type="button" class="btn btn-info me-3" onClick={() => {
+                            <button type="button" className="btn btn-info me-3" onClick={() => {
                                 const val = prompt("Enter the value");
                                 this.insertAtIndex(0, val, ArraySteps.insertAtBeginning(this.state.arrayState.length + 1))
                             }}>Insert Element at Beginning</button>
-                            <button type="button" class="btn btn-info me-3" onClick={() => {
+                            <button type="button" className="btn btn-info me-3" onClick={() => {
                                 const val = prompt("Enter the value");
                                 this.insertAtEnd(val)
                             }}>Insert Element at End</button>
                         </div>
-                        <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-warning me-3" onClick={() => {
+                        <div className="d-flex justify-content-center m-3">
+                            <button type="button" className="btn btn-warning me-3" onClick={() => {
                                 this.deleteAtIndex(0, ArraySteps.deleteAtBeginning(this.state.arrayState.length - 1))
                             }}>Delete Element from Start</button>
-                            <button type="button" class="btn btn-warning me-3" onClick={() => {
+                            <button type="button" className="btn btn-warning me-3" onClick={() => {
                                 this.deleteAtIndex(-1, ArraySteps.deleteAtEnd(this.state.arrayState.length - 1))
                             }}>Delete Element from End</button>
-                            <button type="button" class="btn btn-warning me-3" onClick={() => {
+                            <button type="button" className="btn btn-warning me-3" onClick={() => {
                                 const ind = prompt("Enter the Index");
                                 this.deleteAtIndex(ind, ArraySteps.deleteAtIndex(ind, this.state.arrayState.length - 1))
                             }}>Delete Element at Index</button>
                         </div>
-                        <div class="d-flex justify-content-center m-3">
-                            <button type="button" class="btn btn-primary me-3" onClick={this.changeVal}>Change Value at Index</button>
-                            <button type="button" class="btn btn-danger me-3" onClick={this.clearArray}>Clear Array</button>
-                            <button type="button" class="btn btn-success me-3" onClick={this.createArray}>Create Array</button>
+                        <div className="d-flex justify-content-center m-3">
+                            <button type="button" className="btn btn-primary me-3" onClick={this.changeVal}>Change Value at Index</button>
+                            <button type="button" className="btn btn-danger me-3" onClick={this.clearArray}>Clear Array</button>
+                            <button type="button" className="btn btn-success me-3" onClick={this.createArray}>Create Array</button>
                         </div>
                     </div>
-                    <div class="col-sm">
+                    <div className="col-sm">
                         {
                             !(Object.keys(this.state.lastOperation).length === 0) ? (
                                 <>
