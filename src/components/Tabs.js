@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Queue from './Queue';
 import Array from './Array';
 import Stack from './Stack';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -71,6 +72,10 @@ function Tabs() {
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <Stack />
+        </div>
+
+        <div className={toggleState === 4 ? "content active-content" : "content"}>
+          <Queue />
         </div>
       </div>
     </div>
