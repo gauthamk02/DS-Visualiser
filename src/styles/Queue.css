@@ -1,0 +1,30 @@
+.active-queue-item {
+    width: 5rem;
+    text-align: center;
+}
+
+.queue-table {
+    margin: auto auto;
+}
+
+.passive-queue-item {
+    width: 5rem;
+    color:rgba(67, 72, 73, 0.911);
+    text-align: center;
+}
+
+.queue-index {
+    all: unset;
+}
+
+.item-container {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: right;
+}
+
+h2 {
+    margin: 10px;
+    text-align: center;
+}

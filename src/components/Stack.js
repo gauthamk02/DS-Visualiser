@@ -3,25 +3,29 @@ import '../styles/Stack.css'
 import '../styles/styles.css'
 
 class Stack extends React.Component {
+    
     constructor(props) {
-        super(props)
+        super(props);
         this.colorCounter = 0;
-        this.items = []
-        this.count = 0
+        this.items = [];
+        this.idCounter = 0;
         this.state = {
             StackState: [this.createStackItem(12), this.createStackItem(87), this.createStackItem(64)],
             lastOperation: {},
         }
     }
+    
     createStackItem = (val) => {
         let bgcolors = ["#FEA47F", "#25CCF7", "#EAB543", "#55E6C1", "#FD7272"];
         let color = bgcolors[this.colorCounter % bgcolors.length];
         this.colorCounter++;
-        return new StackItem(val, color);
+        return new StackItem(this.idCounter++ ,val, color);
     }
+    
     clearStack = () => {
         this.setState({ StackState: [] , lastOperation: StackSteps.clearStack()});
     }
+    
     pushElement = (val) => {
         if (this.state.StackState.length === 9) {
             alert("Cant create Stack with length more than 9");
@@ -32,6 +36,7 @@ class Stack extends React.Component {
         stack.push(this.createStackItem(val));
         this.setState({ StackState: stack, lastOperation: StackSteps.pushElement() });
     }
+    
     peekStack=()=> {
         if (this.state.StackState.length === 0) {
             alert("Stack is Empty!");
@@ -40,6 +45,7 @@ class Stack extends React.Component {
         let lastElement = this.state.StackState[this.state.StackState.length - 1];
         alert(`Peek Value: ${lastElement.val}`)
     }
+    
     popElement = () => {
         if (this.state.StackState.length === 0) {
             alert("Stack is Empty!");
@@ -49,6 +55,7 @@ class Stack extends React.Component {
         this.setState({ StackState: this.state.StackState , lastOperation: StackSteps.popElement()});
         alert(`The popped value is ${temp.val}`)
     }
+    
     createStack = () => {
         let size = prompt("Enter the size of the Stack");
         this.clearStack();
@@ -62,6 +69,7 @@ class Stack extends React.Component {
         }
         this.setState({ StackState: stack });
     }
+
     render() {
         return (
             <>
@@ -73,8 +81,9 @@ class Stack extends React.Component {
                                 {
                                     this.state.StackState.length > 0 ? (
                                         <table className='stack-table'>
+                                            <tbody>
                                             {this.state.StackState.reverse().map((item, index) => {
-                                                return <tr><td className='stack-item' >
+                                                return <tr key={item.id}><td className='stack-item' >
                                                     <div className='item-container' style={{ backgroundColor: item.color }}>
                                                         <div style={{ margin: "auto", position: "relative" }}>
                                                             <b>{item.val}</b>
@@ -83,6 +92,7 @@ class Stack extends React.Component {
                                                 </td>
                                                 </tr>
                                             })}
+                                            </tbody>
                                         </table>) : (<h4 style={{ margin: "auto auto" }}>Stack is Empty</h4>)
                                 }
                             </div>
@@ -130,7 +140,8 @@ class Stack extends React.Component {
 }
 
 class StackItem {
-    constructor(val, color) {
+    constructor(id, val, color) {
+        this.id = id;
         this.val = val;
         this.color = color;
     }

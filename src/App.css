@@ -19,6 +19,8 @@
   margin: 100px auto 0;
   word-break: break-word;
   border: 1px solid rgba(0, 0, 0, 0.274);
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #888888;
 }
 
 /* .container {
@@ -54,7 +56,7 @@
 
 .active-tabs  {
   background: white;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent
 }
 
 .active-tabs::before {
