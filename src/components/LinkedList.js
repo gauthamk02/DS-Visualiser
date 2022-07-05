@@ -42,7 +42,7 @@ class LinkedList extends React.Component {
       alert("Invalid Index " + ind);
       return;
     }
- 
+
     if (ind === "" || val === "" || ind === null || val === null) return;
     this.state.listState.splice(ind, 0, this.createListItem(val));
     this.setState({ listState: this.state.listState, lastOperation: steps });
@@ -99,46 +99,45 @@ class LinkedList extends React.Component {
         <div className="container canvas">
           {this.state.listState.length > 0 ? (
             <table className="array-table">
-              <tr>
-                <td style={{paddingRight:'10px'}}><h7>Head</h7></td>
-                {this.state.listState.map((item, index) => {
-                  return (
-                    <>
-                      <td className="array-item">
-                        <div
-                          className="item-container"
-                          style={{ backgroundColor: item.color }}
-                        >
-                          <div style={{ margin: "auto" }}>
-                            <b>{item.val}</b>
+              <tbody>
+                <tr>
+                  <td key={-1} style={{ paddingRight: '10px' }}><b>Head</b></td>
+                  {this.state.listState.map((item, index) => {
+                    return (
+                      <>
+                        <td className="array-item">
+                          <div
+                            className="item-container"
+                            style={{ backgroundColor: item.color }}
+                          >
+                            <div style={{ margin: "auto" }}>
+                              <b>{item.val}</b>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td>
-                        {index < this.state.listState.length - 1 ? (
-                          <td>
+                        </td>
+                        <td>
+                          {index < this.state.listState.length - 1 ? (
                             <Arrow />
-                          </td>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                    </>
-                  );
-                })}
-               </tr>
-
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                      </>
+                    );
+                  })}
+                </tr>
+              </tbody>
             </table>
           ) : (
             <h4 style={{ margin: "auto auto" }}>List is Empty</h4>
           )}
         </div>
-        <div class="row workspace">
-          <div class="col-7" style={{ borderRight: "4px solid black" }}>
-            <div class="d-flex justify-content-center m-3">
+        <div className="row workspace">
+          <div className="col-7" style={{ borderRight: "4px solid black" }}>
+            <div className="d-flex justify-content-center m-3">
               <button
                 type="button"
-                class="btn btn-info me-3"
+                className="btn btn-info me-3"
                 onClick={() => {
                   const ind = prompt("Enter the Index");
                   const val = prompt("Enter the value");
@@ -155,7 +154,7 @@ class LinkedList extends React.Component {
               </button>
               <button
                 type="button"
-                class="btn btn-info me-3"
+                className="btn btn-info me-3"
                 onClick={() => {
                   const val = prompt("Enter the value");
                   this.insertAtIndex(
@@ -171,7 +170,7 @@ class LinkedList extends React.Component {
               </button>
               <button
                 type="button"
-                class="btn btn-info me-3"
+                className="btn btn-info me-3"
                 onClick={() => {
                   const val = prompt("Enter the value");
                   this.insertAtEnd(val);
@@ -180,15 +179,15 @@ class LinkedList extends React.Component {
                 Insert Element at End
               </button>
             </div>
-            <div class="d-flex justify-content-center m-3">
+            <div className="d-flex justify-content-center m-3">
               <button
                 type="button"
-                class="btn btn-warning me-3"
+                className="btn btn-warning me-3"
                 onClick={() => {
                   this.deleteAtIndex(
                     0,
                     LinkedSteps.deleteAtBeginning(
-              
+
                     )
                   );
                 }}
@@ -197,7 +196,7 @@ class LinkedList extends React.Component {
               </button>
               <button
                 type="button"
-                class="btn btn-warning me-3"
+                className="btn btn-warning me-3"
                 onClick={() => {
                   this.deleteAtIndex(
                     -1,
@@ -209,7 +208,7 @@ class LinkedList extends React.Component {
               </button>
               <button
                 type="button"
-                class="btn btn-warning me-3"
+                className="btn btn-warning me-3"
                 onClick={() => {
                   const ind = prompt("Enter the Index");
                   this.deleteAtIndex(
@@ -223,19 +222,19 @@ class LinkedList extends React.Component {
                 Delete Element at Index
               </button>
             </div>
-            <div class="d-flex justify-content-center m-3">
-           
+            <div className="d-flex justify-content-center m-3">
+
               <button
                 type="button"
-                class="btn btn-danger me-3"
+                className="btn btn-danger me-3"
                 onClick={this.clearArray}
               >
-                Clear Linked List 
+                Clear Linked List
               </button>
-             
+
             </div>
           </div>
-          <div class="col-sm">
+          <div className="col-sm">
             {!(Object.keys(this.state.lastOperation).length === 0) ? (
               <>
                 <b>Last Operation: {this.state.lastOperation.title}</b>
@@ -277,13 +276,13 @@ class ListItem {
 export default LinkedList;
 
 class LinkedSteps {
-  static insertAtIndex(val,index) {
+  static insertAtIndex(val, index) {
     return {
       title: `Insert Element at Index ${index}`,
       steps: [
         ` Allocate memory for new node `,
         ` Store the data ${val} to the new node.`,
-        ` Traverse the node just before the required position of new node(${index-1}th position) `,
+        ` Traverse the node just before the required position of new node(${index - 1}th position) `,
         ` Change the pointers to include new node in between.`,
       ],
     };
@@ -297,7 +296,7 @@ class LinkedSteps {
         ` Store the data: ${val} `,
         ` Change the next of new node to point to head.`,
         ` Change head to point to recently created node.`
-                
+
       ],
     };
   }
@@ -308,7 +307,7 @@ class LinkedSteps {
       steps: [
         `Allocate memory for new node`,
         `Store data`,
-        `Traverse till the last node: ${size-1}th node `,
+        `Traverse till the last node: ${size - 1}th node `,
         `Change next of last node to recently created node`
       ],
     };
@@ -318,9 +317,9 @@ class LinkedSteps {
     return {
       title: `Delete Element at Index ${index}`,
       steps: [
-        `Traverse to ${index-1}th element `,
+        `Traverse to ${index - 1}th element `,
         `Change the next pointers to exclude the node from the chain`,
-        
+
       ],
     };
   }
@@ -330,7 +329,7 @@ class LinkedSteps {
       title: `Delete Element from Start`,
       steps: [
         `Point head to the second node`,
-       
+
       ],
     };
   }
@@ -339,7 +338,7 @@ class LinkedSteps {
     return {
       title: `Delete Element from End`,
       steps: [
-        `Traverse to the ${size-1}th element .`,
+        `Traverse to the ${size - 1}th element .`,
         `Change it's next pointer to`,
       ],
     };

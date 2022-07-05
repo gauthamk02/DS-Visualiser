@@ -142,38 +142,40 @@ class Queue extends React.Component {
                     {
                         this.state.QueueState.length > 0 ? (
                             <table className='queue-table'>
-                                <tr>
-                                    {/* <td style={{ paddingRight: '10px' }}><h5>Front</h5></td> */}
-                                    {
-                                        this.state.QueueState.map((item, index) => {
-                                            if (!item.isActive) item.color = 'rgba(194, 189, 189, 0.315)';
-                                            return (
-                                                <>
-                                                    <td key={index} className={item.isActive ? 'active-queue-item' : 'passive-queue-item'} >
-                                                        <p style={{ margin: "0 0 0 0" }}>{item.index}</p>
-                                                        <div className='item-container' style={{ backgroundColor: item.color }} >
-                                                            <div style={{ margin: "auto", position: "relative" }}>
-                                                                <b>{item.val}</b>
+                                <tbody>
+                                    <tr>
+                                        {/* <td style={{ paddingRight: '10px' }}><h5>Front</h5></td> */}
+                                        {
+                                            this.state.QueueState.map((item, index) => {
+                                                if (!item.isActive) item.color = 'rgba(194, 189, 189, 0.315)';
+                                                return (
+                                                    <>
+                                                        <td key={index} className={item.isActive ? 'active-queue-item' : 'passive-queue-item'} >
+                                                            <p style={{ margin: "0 0 0 0" }}>{item.index}</p>
+                                                            <div className='item-container' style={{ backgroundColor: item.color }} >
+                                                                <div style={{ margin: "auto", position: "relative" }}>
+                                                                    <b>{item.val}</b>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <p style={{ margin: "0 0 0 0" }}>{index === this.state.front ? 'Front' : ' -\n'}</p>
-                                                        <p style={{ margin: "0 0 0 0" }}>{index === this.state.rear ? 'Rear' : ' -\n'}</p>
-                                                    </td>
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </tr>
+                                                            <p style={{ margin: "0 0 0 0" }}>{index === this.state.front ? 'Front' : ' -\n'}</p>
+                                                            <p style={{ margin: "0 0 0 0" }}>{index === this.state.rear ? 'Rear' : ' -\n'}</p>
+                                                        </td>
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                    </tr>
+                                </tbody>
                             </table>) : (<h4 style={{ margin: "auto auto" }}>Queue is Empty</h4>)
                     }
-                <div className='row' style={{margin: 'auto auto 10px 10px'}}>
-                    <div className="col" style={{ color: 'green', width: '100px'}}>
-                        <b>{`Front: ${this.state.front}`}</b>
+                    <div className='row' style={{ margin: 'auto auto 10px 10px' }}>
+                        <div className="col" style={{ color: 'green', width: '100px' }}>
+                            <b>{`Front: ${this.state.front}`}</b>
+                        </div>
+                        <div className="col" style={{ color: 'orange' }}>
+                            <b>{`Rear: ${this.state.rear}`}</b>
+                        </div>
                     </div>
-                    <div className="col" style={{ color: 'orange' }}>
-                        <b>{`Rear: ${this.state.rear}`}</b>
-                    </div>
-                </div>
                 </div>
                 <div className="row workspace">
                     <div className="col-7" style={{ borderRight: "4px solid black" }}>

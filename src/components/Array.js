@@ -32,7 +32,7 @@ class Array extends React.Component {
     }
 
     clearArray = () => {
-        this.setState({ arrayState: [] , lastOperaion: ArraySteps.clearArray()});
+        this.setState({ arrayState: [], lastOperaion: ArraySteps.clearArray() });
     }
 
     deleteAtIndex = (ind, steps) => {
@@ -104,18 +104,18 @@ class Array extends React.Component {
                         this.state.arrayState.length > 0 ? (
                             <table className='array-table'>
                                 <tbody>
-                                <tr>
-                                    {this.state.arrayState.map((item, index) => {
-                                        return <td className='array-item' >
-                                            <p style={{ margin: "0 0 0 0" }}>{index}</p>
-                                            <div className='item-container' style={{ backgroundColor: item.color }}>
-                                                <div style={{ margin: "auto", position: "relative" }}>
-                                                    <b>{item.val}</b>
+                                    <tr>
+                                        {this.state.arrayState.map((item, index) => {
+                                            return <td key={index} className='array-item' >
+                                                <p style={{ margin: "0 0 0 0" }}>{index}</p>
+                                                <div className='item-container' style={{ backgroundColor: item.color }}>
+                                                    <div style={{ margin: "auto", position: "relative" }}>
+                                                        <b>{item.val}</b>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    })}
-                                </tr>
+                                            </td>
+                                        })}
+                                    </tr>
                                 </tbody>
                             </table>) : (<h4 style={{ margin: "auto auto" }}>Array is Empty</h4>)
                     }
