@@ -3,6 +3,8 @@ import Queue from './Queue';
 import Array from './Array';
 import Stack from './Stack';
 import LinkedList from './LinkedList';
+import Sort from './Sort';
+import Tree from './Tree';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
 import '../styles/styles.css';
@@ -47,6 +49,12 @@ function Tabs() {
         >
           Binary Tree
         </button>
+        <button
+          className={toggleState === 6 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(6)}
+        >
+          Sorting Algorithms
+        </button>
       </div>
 
       <div className="content-tabs">
@@ -70,6 +78,15 @@ function Tabs() {
 
         <div className={toggleState === 4 ? "content active-content" : "content"}>
           <Queue />
+        </div>
+        <div className={toggleState === 5 ? "content active-content" : "content"}>
+          {/* <div><p>Binary Tree</p>
+            lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div> */}
+          <Tree />
+        </div>
+        <div className={toggleState === 6 ? "content active-content" : "content"}>
+          <Sort />
         </div>
       </div>
     </div>
