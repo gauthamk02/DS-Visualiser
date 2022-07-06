@@ -4,7 +4,11 @@
 }
 
 .queue-table {
+    /* position: relative; */
+    /* display: flex; */
+    /* justify-content: center; */
     margin: auto auto;
+    /* align-items: center; */
 }
 
 .passive-queue-item {
@@ -27,4 +31,8 @@
 h2 {
     margin: 10px;
     text-align: center;
+}
+
+.trans {
+    color: transparent;
 }

@@ -157,8 +157,8 @@ class Queue extends React.Component {
                                                                     <b>{item.val}</b>
                                                                 </div>
                                                             </div>
-                                                            <p style={{ margin: "0 0 0 0" }}>{index === this.state.front ? 'Front' : ' -\n'}</p>
-                                                            <p style={{ margin: "0 0 0 0" }}>{index === this.state.rear ? 'Rear' : ' -\n'}</p>
+                                                            <p className='trans' style={{ margin: "0 0 0 0" }}>{index === this.state.front ? 'Front' : ' -\n'}</p>
+                                                            <p className='trans' style={{ margin: "0 0 0 0" }}>{index === this.state.rear ? 'Rear' : ' -\n'}</p>
                                                         </td>
                                                     </>
                                                 )
