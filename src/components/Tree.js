@@ -3,7 +3,7 @@ import "../styles/styles.css";
 import "../styles/Tree.css";
 
 import { BinarySearchTree, useBinarySearchTree } from "react-tree-vis";
-// import { useState } from 'react'
+import { useState } from 'react'
 
 export default function Tree() {
   const {
@@ -18,10 +18,13 @@ export default function Tree() {
     checkTreeType,
   } = useBinarySearchTree();
 
+  const [inorder, setInorder] = useState('1, 2, 3');
+  const [preorder, setPreorder] = useState('2, 1, 3');
+  const [postorder, setPostorder] = useState('1, 3, 2');
+  const [treeType, setTreeType] = useState('Balanced');
+
   const treeStyle = {
     lineColor: "red",
-    // lineWidth
-    // nodeRadius: 10,
   };
   return (
     <>
@@ -42,6 +45,10 @@ export default function Tree() {
                   return;
                 }
                 insert(val);
+                setInorder(getData('inorder').join(', '));
+                setPreorder(getData('preorder').join(', '));
+                setPostorder(getData('postorder').join(', '));
+                setTreeType(checkTreeType().join(', '));
               }}
             >
               Insert{" "}
@@ -56,26 +63,23 @@ export default function Tree() {
                   return;
                 }
                 remove(val);
+                setInorder(getData('inorder').join(', '));
+                setPreorder(getData('preorder').join(', '));
+                setPostorder(getData('postorder').join(', '));
+                setTreeType(checkTreeType().join(', '));
               }}
             >
               Remove{" "}
-            </button>
-            {/* use the getData function */}
-            <button
-              type="button"
-              className="btn btn-info me-3"
-              onClick={() => {
-                let val = getData('inorder');
-                alert(val);
-              }}
-            >
-              Get Data{" "}
             </button>
             <button
               type="button"
               className="btn btn-info me-3"
               onClick={() => {
                 clear();
+                setInorder(' ');
+                setPreorder(' ');
+                setPostorder(' ');
+                setTreeType(checkTreeType().join(', '));
               }}
             >
               Clear{" "}
@@ -85,6 +89,10 @@ export default function Tree() {
               className="btn btn-info me-3"
               onClick={() => {
                 balance();
+                setInorder(getData('inorder').join(', '));
+                setPreorder(getData('preorder').join(', '));
+                setPostorder(getData('postorder').join(', '));
+                setTreeType(checkTreeType().join(', '));
               }}
             >
               Balance{" "}
@@ -94,20 +102,14 @@ export default function Tree() {
               className="btn btn-info me-3"
               onClick={() => {
                 generateRandomTree(10);
+                setInorder(getData('inorder').join(', '));
+                setPreorder(getData('preorder').join(', '));
+                setPostorder(getData('postorder').join(', '));
+                setTreeType(checkTreeType().join(', '));
               }}
             >
               Generate Random Tree{" "}
             </button>
-            <button
-              type="button"
-              className="btn btn-info me-3"
-              onClick={() => {
-                checkTreeType();
-              }}
-            >
-              Check Tree Type{" "}
-            </button>
-
             <button
               type="button"
               className="btn btn-info me-3"
@@ -122,17 +124,12 @@ export default function Tree() {
             >
               Search{" "}
             </button>
-            {/* display the check tree types output on the screen */}
-            {/* <div className="output">
-                <p>{checkTreeType()}</p>
-            </div> */}
-            
-
-            {/* <div className="output">
-                <p>{checkTreeType()}</p>
-                </div> */}  
-
-                
+          </div>
+          <div style={{ color: 'green'}}>
+            <b>{`Inorder: ${inorder}`}</b><br/>
+            <b>{`Preorder: ${preorder}`}</b><br/>
+            <b>{`Postorder: ${postorder}`}</b><br/>
+            <b>{`Tree Type: ${treeType}`}</b><br/>
           </div>
         </div>
       </div>
