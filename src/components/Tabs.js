@@ -3,7 +3,7 @@ import Queue from './Queue';
 import Array from './Array';
 import Stack from './Stack';
 import LinkedList from './LinkedList';
-import Sort from './Sort';
+//import Sort from './Sort';
 import Tree from './Tree';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css';
@@ -86,7 +86,7 @@ function Tabs() {
           <Tree />
         </div>
         <div className={toggleState === 6 ? "content active-content" : "content"}>
-          <Sort />
+          {/* <Sort /> */}
         </div>
       </div>
     </div>
