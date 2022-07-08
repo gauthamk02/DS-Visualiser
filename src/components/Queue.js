@@ -13,18 +13,6 @@ class Queue extends React.Component {
             rear: 2,
             lastOperation: {},
         }
-
-        this.steps = {
-            insertAtIndex: {
-                title: `Insert Element at Index {index}`,
-                steps: [
-                    "Create a new Array with size {n}.",
-                    "Copy all the elements from the old Array till index {index} to the new Array .",
-                    "Insert the new element at index {index} of the new Array.",
-                    "Copy all the elements from the old Array from index {index+1} till end to the new Array .",
-                ]
-            }
-        }
     }
 
     createInitialQueue = (n) => {
@@ -59,7 +47,7 @@ class Queue extends React.Component {
             queue.push(this.createQueueItem('-', i, false));
         }
 
-        this.setState({ QueueState: queue,lastOperation: QueueSteps.createQueue(n) , front: -1, rear: -1 });
+        this.setState({ QueueState: queue, lastOperation: QueueSteps.createQueue(n), front: -1, rear: -1 });
     }
 
     createQueueItem = (val, index, isActive = true) => {
@@ -71,28 +59,33 @@ class Queue extends React.Component {
     }
 
     clearQueue = () => {
-        this.setState({ QueueState: [],lastOperation: QueueSteps.clearQueue() , front: -1, rear: -1 });
+        this.setState({ QueueState: [], lastOperation: QueueSteps.clearQueue(), front: -1, rear: -1 });
     }
 
     dequeue = () => {
-        if (this.front === this.state.QueueState.length) {
+        if (this.state.front === this.state.QueueState.length) {
             alert("Queue is Empty!!")
             return;
         }
-        if (this.state.front > this.state.rear && !this.state.QueueState[this.state.front].isActive) {
+        if (this.state.front === -1 && this.state.rear === -1) {
             alert("Queue is Empty!!")
             return;
         }
-        alert(`The Dequeued value is : ${this.state.QueueState[0].val}`)
+        alert(`The Dequeued value is : ${this.state.QueueState[this.state.front].val}`)
 
         let queue = this.state.QueueState;
         queue[this.state.front].isActive = false;
 
-        this.setState({
-            QueueState: queue,
-            lastOperation: QueueSteps.dequeue(this.state.QueueState.length),
-            front: this.state.front === this.state.rear ? this.state.front : this.state.front + 1,
-        });
+        if (this.state.front === this.state.rear) {
+            this.setState({ QueueState: queue, lastOperation: QueueSteps.dequeue(), front: -1, rear: -1 });
+        }
+        else {
+            this.setState({
+                QueueState: queue,
+                lastOperation: QueueSteps.dequeue(this.state.QueueState.length),
+                front: this.state.front + 1,
+            });
+        }
     }
 
     enqueue = (val) => {
@@ -109,6 +102,7 @@ class Queue extends React.Component {
 
         let queue = this.state.QueueState;
         queue[this.state.rear + 1] = this.createQueueItem(val, this.state.rear + 1, true);
+        if(this.state.front === -1) this.setState({ front: 0 });
         this.setState({ QueueState: queue, lastOperation: QueueSteps.Enqueue(this.state.QueueState.length), rear: this.state.rear + 1 });
 
     }
@@ -123,12 +117,12 @@ class Queue extends React.Component {
             return;
         }
         alert(`Peek Value is : ${this.state.QueueState[this.state.front].val}`)
-        this.setState({QueueState: this.state.QueueState, lastOperation: QueueSteps.peek()})
+        this.setState({ QueueState: this.state.QueueState, lastOperation: QueueSteps.peek() })
         return;
     }
 
     length = () => {
-        alert(`The Length of Queue is : ${this.state.rear-this.state.front + 1}`)
+        alert(`The Length of Queue is : ${this.state.rear - this.state.front + 1}`)
         return;
     }
 

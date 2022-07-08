@@ -3,12 +3,17 @@
     text-align: center;
 }
 
+.prev-array-item {
+    opacity: 0.5;
+    width: 3rem;
+    text-align: center;
+}
+
 .array-table {
     margin: auto auto;
 }
 
 .item-container {
-    width: 100%;
     height: 75px;
     display: flex;
     justify-content: right;

@@ -7,20 +7,9 @@ class Array extends React.Component {
         super(props)
         this.colorCounter = 0;
         this.state = {
+            prevArrayState: [],
             arrayState: [this.createArrayItem(12), this.createArrayItem(87), this.createArrayItem(64)],
             lastOperation: {},
-        }
-
-        this.steps = {
-            insertAtIndex: {
-                title: `Insert Element at Index {index}`,
-                steps: [
-                    "Create a new Array with size {n}.",
-                    "Copy all the elements from the old Array till index {index} to the new Array .",
-                    "Insert the new element at index {index} of the new Array.",
-                    "Copy all the elements from the old Array from index {index+1} till end to the new Array .",
-                ]
-            }
         }
     }
 
@@ -31,7 +20,14 @@ class Array extends React.Component {
         return new ArrayItem(val, color);
     }
 
+    setPrevArrayState() {
+        this.setState({
+            prevArrayState: [...this.state.arrayState],
+        })
+    }
+
     clearArray = () => {
+        this.setPrevArrayState();
         this.setState({ arrayState: [], lastOperaion: ArraySteps.clearArray() });
     }
 
@@ -40,6 +36,7 @@ class Array extends React.Component {
             alert("Invalid Index");
             return;
         }
+        this.setPrevArrayState();
         this.state.arrayState.splice(ind, 1);
         this.setState({ arrayState: this.state.arrayState, lastOperation: steps });
     }
@@ -54,6 +51,7 @@ class Array extends React.Component {
             return;
         }
         if (ind === "" || val === "" || ind === null || val === null) return;
+        this.setPrevArrayState();
         this.state.arrayState.splice(ind, 0, this.createArrayItem(val));
         this.setState({ arrayState: this.state.arrayState, lastOperation: steps });
     }
@@ -62,6 +60,7 @@ class Array extends React.Component {
         if (val === "" || val === null) return;
         let arr = this.state.arrayState;
         arr.push(this.createArrayItem(val));
+        this.setPrevArrayState();
         this.setState({ arrayState: arr, lastOperation: ArraySteps.insertAtEnd(this.state.arrayState.length) });
     }
 
@@ -104,6 +103,18 @@ class Array extends React.Component {
                         this.state.arrayState.length > 0 ? (
                             <table className='array-table'>
                                 <tbody>
+                                    <tr style={{alignContent: 'center'}}>
+                                        {this.state.prevArrayState.map((item, index) => {
+                                            return <td key={index} className='prev-array-item' >
+                                                <p style={{ margin: "0 0 0 0" }}>{index}</p>
+                                                <div className='item-container' style={{ backgroundColor: item.color }}>
+                                                    <div style={{ margin: "auto", position: "relative" }}>
+                                                        <b>{item.val}</b>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        })}
+                                    </tr>
                                     <tr>
                                         {this.state.arrayState.map((item, index) => {
                                             return <td key={index} className='array-item' >
@@ -125,6 +136,10 @@ class Array extends React.Component {
                         <div className="d-flex justify-content-center m-3">
                             <button type="button" className="btn btn-info me-3" onClick={() => {
                                 const ind = prompt("Enter the Index");
+                                if(ind === "" || ind === null) {
+                                    alert("Invalid Index");
+                                    return;
+                                };
                                 const val = prompt("Enter the value");
                                 this.insertAtIndex(ind, val, ArraySteps.insertAtIndex(ind, this.state.arrayState.length + 1))
                             }}>Insert Element at Index</button>
