@@ -14,9 +14,6 @@ class Queue extends React.Component {
             lastOperation: {},
         }
 
-        this.front = 0;
-        this.rear = 2;
-
         this.steps = {
             insertAtIndex: {
                 title: `Insert Element at Index {index}`,
@@ -62,7 +59,7 @@ class Queue extends React.Component {
             queue.push(this.createQueueItem('-', i, false));
         }
 
-        this.setState({ QueueState: queue, front: -1, rear: -1 });
+        this.setState({ QueueState: queue,lastOperation: QueueSteps.createQueue(n) , front: -1, rear: -1 });
     }
 
     createQueueItem = (val, index, isActive = true) => {
@@ -74,7 +71,7 @@ class Queue extends React.Component {
     }
 
     clearQueue = () => {
-        this.setState({ QueueState: [], front: -1, rear: -1 });
+        this.setState({ QueueState: [],lastOperation: QueueSteps.clearQueue() , front: -1, rear: -1 });
     }
 
     dequeue = () => {
@@ -126,11 +123,12 @@ class Queue extends React.Component {
             return;
         }
         alert(`Peek Value is : ${this.state.QueueState[this.state.front].val}`)
+        this.setState({QueueState: this.state.QueueState, lastOperation: QueueSteps.peek()})
         return;
     }
 
     length = () => {
-        alert(`The Length of Queue is : ${this.state.QueueState.length}`)
+        alert(`The Length of Queue is : ${this.state.rear-this.state.front + 1}`)
         return;
     }
 
@@ -233,9 +231,10 @@ class QueueSteps {
         return {
             title: `Enqueue`,
             steps: [
-                `Create a new Queue with size ${length}.`,
-                `Copy all the elements from the old Queue to the new Queue.`,
-                `Insert the new element to position ${length - 1} of the new Queue.`,
+                'Checks if Queue is full',
+                'if Queue is full, produces an error and exit.',
+                `if Queue is not full, Adds a New element at rear + 1 index`,
+                `Increments the rear pointer by 1.`,
             ]
         }
 
@@ -247,7 +246,7 @@ class QueueSteps {
                 `Checks if the Queue is empty.`,
                 `If the Queue is empty, produces an error and exit.`,
                 `If the Queue is not empty, proceeds to remove the data element at which front is pointing.`,
-                `Decreases the value of rear by 1.`
+                `Increases the front pointer by 1.`
             ]
         }
 
@@ -256,10 +255,26 @@ class QueueSteps {
         return {
             title: `Front element Displayed`,
             steps: [
-                `Checks if the stack is empty.`,
-                `If the stack is empty, produces an error and exit.`,
-                `If the stack is not empty, accesses the data element at which top is pointing.`,
-                `Decreases the value of top by 1.`
+                `Checks if the Queue is empty.`,
+                `If the Queue is empty, produces an error and exit.`,
+                `If the Queue is not empty, accesses the data element at which rear pointing.`
+            ]
+        }
+    }
+
+    static clearQueue() {
+        return {
+            title: `Clear Queue`,
+            steps: []
+        }
+    }
+
+    static createQueue(size) {
+        return {
+            title: `Create Queue with size ${size}`,
+            steps: [
+                `Allocate an array with size ${size}.`,
+                'Initialise front and rear pointers as -1.'
             ]
         }
     }
