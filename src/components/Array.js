@@ -91,7 +91,8 @@ class Array extends React.Component {
     }
 
     isValidIndex = (ind) => {
-        return ind >= this.state.arrayState.length * -1 && ind < this.state.arrayState.length;
+        return ind >= this.state.arrayState.length * -1 && ind < this.state.arrayState.length 
+            && ind !== null && ind !== "" && ind !== undefined;
     }
 
     render() {
