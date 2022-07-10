@@ -35,6 +35,7 @@ class LinkedList extends React.Component {
     }
     this.state.listState.splice(ind, 1);
     this.setState({ listState: this.state.listState, lastOperation: steps });
+  
   };
 
   insertAtIndex = (ind, val, steps) => {
@@ -42,6 +43,7 @@ class LinkedList extends React.Component {
       alert("Invalid Index " + ind);
       return;
     }
+   
 
     if (ind === "" || val === "" || ind === null || val === null) return;
     this.state.listState.splice(ind, 0, this.createListItem(val));
@@ -87,7 +89,7 @@ class LinkedList extends React.Component {
 
   isValidIndex = (ind) => {
     return (
-      ind >= this.state.listState.length * -1 &&
+      ind >= this.state.listState.length * -1 ||
       ind < this.state.listState.length
     );
   };
@@ -282,8 +284,10 @@ class LinkedSteps {
       steps: [
         ` Allocate memory for new node `,
         ` Store the data ${val} to the new node.`,
-        ` Traverse the node just before the required position of new node(${index - 1}th position) `,
-        ` Change the pointers to include new node in between.`,
+        ` Traverse through the list to position-${index-1}) `,
+        ` Set the next pointer of new node to the next of current node`,
+        ` Set the current node's next pointer to point to the new node `,
+
       ],
     };
   }
@@ -308,7 +312,9 @@ class LinkedSteps {
         `Allocate memory for new node`,
         `Store data`,
         `Traverse till the last node: ${size - 1}th node `,
-        `Change next of last node to recently created node`
+        `Change next of last node to recently created node`,
+        `Set the next pointer of new node to null`
+
       ],
     };
   }
@@ -317,9 +323,9 @@ class LinkedSteps {
     return {
       title: `Delete Element at Index ${index}`,
       steps: [
-        `Traverse to ${index - 1}th element `,
-        `Change the next pointers to exclude the node from the chain`,
-
+        `Check whether there are elements in the list`,
+        `Traverse to element at index-${index-1}`,
+        `Set the next pointer of current node to point to next of the node to be deleted`,
       ],
     };
   }
@@ -328,8 +334,8 @@ class LinkedSteps {
     return {
       title: `Delete Element from Start`,
       steps: [
-        `Point head to the second node`,
-
+        `Check if list is empty`,
+        `Point head to the next of the first node`,
       ],
     };
   }
@@ -338,8 +344,9 @@ class LinkedSteps {
     return {
       title: `Delete Element from End`,
       steps: [
-        `Traverse to the ${size - 1}th element .`,
-        `Change it's next pointer to`,
+        `Traverse to the element at index ${size-1}.`,
+        `Change it's next pointer to null`,
+
       ],
     };
   }
